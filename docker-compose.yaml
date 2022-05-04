@@ -1,0 +1,11 @@
+services:
+  phoebe-db:
+    image: postgres
+    container_name: fitnes_db
+    restart: always
+    environment:
+      POSTGRES_DB: fitnes
+      POSTGRES_USER: trainer
+      POSTGRES_PASSWORD: trainer1
+    ports:
+      - "5432:5432"
