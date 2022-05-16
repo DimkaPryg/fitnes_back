@@ -48,8 +48,11 @@ class DailyWorkout(Base):
     __tablename__ = "daily_workout"
 
     id = Column(Integer, primary_key=True, index=True)
-    user = Column(Integer, ForeignKey("user_info.id"))
+    user_id = Column(Integer, ForeignKey("user_info.id"))
     date = Column(DateTime)
-    exercise = Column(Integer, ForeignKey("exercise.id"))
+    exercise_id = Column(Integer, ForeignKey("exercise.id"))
     amount = Column(Integer)
     repetition = Column(Integer)
+
+    user = relationship("UserInfo")
+    exercise = relationship("Exercise")
