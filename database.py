@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 user = "trainer"
 password = "trainer1"
-url = "localhost:5432"
+url = "db:5432"
 database = "fitnes"
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://{user}:{password}@{url}/{database}".format(user=user, password=password,

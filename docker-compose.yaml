@@ -1,5 +1,5 @@
 services:
-  phoebe-db:
+  db:
     image: postgres
     container_name: fitnes_db
     restart: always
@@ -9,3 +9,11 @@ services:
       POSTGRES_PASSWORD: trainer1
     ports:
       - "5432:5432"
+
+  papp:
+    build: .
+    container_name: app
+    ports:
+      - 80:80
+    depends_on:
+      - "db"

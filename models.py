@@ -29,6 +29,7 @@ class Food(Base):
     calories = Column(Float)
     fat = Column(Float)
     carbs = Column(Float)
+    protein = Column(Float)
 
 
 class DailyMeals(Base):
