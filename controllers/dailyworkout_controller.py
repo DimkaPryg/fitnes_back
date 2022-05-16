@@ -3,8 +3,8 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database import SessionLocal
-from services import dailymeals_service as service
-from schemes import dailymeals_cheme as scheme
+from services import dailyworkout_service as service
+from schemes import dailyworkout_cheme as scheme
 
 app = APIRouter()
 
@@ -17,43 +17,44 @@ def get_db():
         db.close()
 
 
-@app.get("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
-def get_dailymeals(dailymeals_id: int, db: Session = Depends(get_db)):
-    db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
-    if db_dailymeals is None:
-        raise HTTPException(status_code=404, detail="DailyMeals not found")
-    return db_dailymeals
+@app.get("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
+def get_dailyworkout(dailyworkout_id: int, db: Session = Depends(get_db)):
+    db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
+    print("hello")
+    if db_dailyworkout is None:
+        raise HTTPException(status_code=404, detail="DailyWorkout not found")
+    return db_dailyworkout
 
 
-@app.get("/dailymeals")
-def get_all_dailymeals(db: Session = Depends(get_db)):
+@app.get("/dailyworkout")
+def get_all_dailyworkout(db: Session = Depends(get_db)):
     return service.get_all(db)
 
 
-@app.post("/dailymeals", response_model=scheme.DailyMeals)
-def create_dailymeals(dailymeals: scheme.DailyMealsBase, db: Session = Depends(get_db)):
-    return service.create(db=db, dailymeals=dailymeals)
+@app.post("/dailyworkout", response_model=scheme.DailyWorkout)
+def create_dailyworkout(dailyworkout: scheme.DailyWorkoutBase, db: Session = Depends(get_db)):
+    return service.create(db=db, dailyworkout=dailyworkout)
 
 
-@app.put("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
-def update_dailymeals(dailymeals_id: int, dailymeals: scheme.DailyMealsBase, db: Session = Depends(get_db)):
-    db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
-    if db_dailymeals is None:
-        raise HTTPException(status_code=404, detail="DailyMeals not found")
-    return service.update(db=db, dailymeals_id=dailymeals_id, dailymeals=dailymeals)
+@app.put("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
+def update_dailyworkout(dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutBase, db: Session = Depends(get_db)):
+    db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
+    if db_dailyworkout is None:
+        raise HTTPException(status_code=404, detail="DailyWorkout not found")
+    return service.update(db=db, dailyworkout_id=dailyworkout_id, dailyworkout=dailyworkout)
 
 
-@app.put("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
-def update_dailymeals(dailymeals_id: int, dailymeals: scheme.DailyMealsBase, db: Session = Depends(get_db)):
-    db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
-    if db_dailymeals is None:
-        raise HTTPException(status_code=404, detail="DailyMeals not found")
-    return service.update(db=db, dailymeals_id=dailymeals_id, dailymeals=dailymeals)
+@app.put("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
+def update_dailyworkout(dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutBase, db: Session = Depends(get_db)):
+    db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
+    if db_dailyworkout is None:
+        raise HTTPException(status_code=404, detail="DailyWorkout not found")
+    return service.update(db=db, dailyworkout_id=dailyworkout_id, dailyworkout=dailyworkout)
 
 
-@app.delete("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
-def delete_article(dailymeals_id: int, db: Session = Depends(get_db)):
-    db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
-    if db_dailymeals is None:
-        raise HTTPException(status_code=404, detail="DailyMeals not found")
-    return service.delete(db=db, dailymeals_id=dailymeals_id)
+@app.delete("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
+def delete_article(dailyworkout_id: int, db: Session = Depends(get_db)):
+    db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
+    if db_dailyworkout is None:
+        raise HTTPException(status_code=404, detail="DailyWorkout not found")
+    return service.delete(db=db, dailyworkout_id=dailyworkout_id)
