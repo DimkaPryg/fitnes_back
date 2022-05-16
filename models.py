@@ -1,4 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float, DateTime
+from sqlalchemy.orm import relationship
+
 from database import Base
 
 
@@ -33,10 +35,13 @@ class DailyMeals(Base):
     __tablename__ = "daily_meals"
 
     id = Column(Integer, primary_key=True, index=True)
-    user = Column(Integer, ForeignKey("user_info.id"))
+    user_id = Column(Integer, ForeignKey("user_info.id"))
     date = Column(DateTime)
-    food = Column(Integer, ForeignKey("food.id"))
+    food_id = Column(Integer, ForeignKey("food.id"))
     mass = Column(Float)
+
+    user = relationship("UserInfo")
+    food = relationship("Food")
 
 
 class DailyWorkout(Base):

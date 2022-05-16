@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from sqlalchemy.orm import relationship
 
 
 class FoodBase(BaseModel):

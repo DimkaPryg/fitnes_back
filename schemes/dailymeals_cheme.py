@@ -1,15 +1,15 @@
 from datetime import datetime
-
+from typing import Union, Optional
 from pydantic import BaseModel
 
-from schemes.food_cheme import Food
-from schemes.userinfo_scheme import UserInfo
+from schemes.food_cheme import Food, FoodBase
+from schemes.userinfo_scheme import UserInfo, UserInfoBase
 
 
 class DailyMealsBase(BaseModel):
-    user: UserInfo
+    user: Union[UserInfo, None] = None
     date: datetime
-    food: Food
+    food: Union[Food, None] = None
     mass: float
 
 
