@@ -11,20 +11,21 @@ def get_all(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.DailyWorkout).offset(skip).limit(limit).all()
 
 
-def create(db: Session, dailyworkout: scheme.DailyWorkoutBase):
-    db_dailyworkout = models.DailyWorkout(user=dailyworkout.user, date=dailyworkout.date, exercise=dailyworkout.exercise,
-                                      amount=dailyworkout.amount, repetition=dailyworkout.repetition)
+def create(db: Session, dailyworkout: scheme.DailyWorkoutCreate):
+    db_dailyworkout = models.DailyWorkout(user_id=dailyworkout.user_id, date=dailyworkout.date,
+                                          exercise_id=dailyworkout.exercise_id,
+                                          amount=dailyworkout.amount, repetition=dailyworkout.repetition)
     db.add(db_dailyworkout)
     db.commit()
     db.refresh(db_dailyworkout)
     return db_dailyworkout
 
 
-def update(db: Session, dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutBase):
+def update(db: Session, dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutCreate):
     db_dailyworkout = get_by_id(db, dailyworkout_id)
-    db_dailyworkout.user = dailyworkout.user
+    db_dailyworkout.user_id = dailyworkout.user_id
     db_dailyworkout.date = dailyworkout.date
-    db_dailyworkout.exercise = dailyworkout.exercise
+    db_dailyworkout.exercise_id = dailyworkout.exercise_id
     db_dailyworkout.amount = dailyworkout.amount
     db_dailyworkout.repetition = dailyworkout.repetition
     db.commit()

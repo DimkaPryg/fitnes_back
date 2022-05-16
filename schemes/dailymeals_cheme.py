@@ -13,6 +13,13 @@ class DailyMealsBase(BaseModel):
     mass: float
 
 
+class DailyMealsCreate(BaseModel):
+    user_id: int
+    date: datetime
+    food_id: int
+    mass: float
+
+
 class DailyMeals(DailyMealsBase):
     id: int
 

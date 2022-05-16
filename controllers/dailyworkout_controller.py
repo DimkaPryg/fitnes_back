@@ -32,20 +32,12 @@ def get_all_dailyworkout(db: Session = Depends(get_db)):
 
 
 @app.post("/dailyworkout", response_model=scheme.DailyWorkout)
-def create_dailyworkout(dailyworkout: scheme.DailyWorkoutBase, db: Session = Depends(get_db)):
+def create_dailyworkout(dailyworkout: scheme.DailyWorkoutCreate, db: Session = Depends(get_db)):
     return service.create(db=db, dailyworkout=dailyworkout)
 
 
 @app.put("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
-def update_dailyworkout(dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutBase, db: Session = Depends(get_db)):
-    db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
-    if db_dailyworkout is None:
-        raise HTTPException(status_code=404, detail="DailyWorkout not found")
-    return service.update(db=db, dailyworkout_id=dailyworkout_id, dailyworkout=dailyworkout)
-
-
-@app.put("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
-def update_dailyworkout(dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutBase, db: Session = Depends(get_db)):
+def update_dailyworkout(dailyworkout_id: int, dailyworkout: scheme.DailyWorkoutCreate, db: Session = Depends(get_db)):
     db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
     if db_dailyworkout is None:
         raise HTTPException(status_code=404, detail="DailyWorkout not found")

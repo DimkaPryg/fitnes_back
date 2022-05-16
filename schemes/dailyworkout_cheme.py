@@ -14,6 +14,14 @@ class DailyWorkoutBase(BaseModel):
     repetition: int
 
 
+class DailyWorkoutCreate(BaseModel):
+    user_id: int
+    date: datetime
+    exercise_id: int
+    amount: int
+    repetition: int
+
+
 class DailyWorkout(DailyWorkoutBase):
     id: int
 

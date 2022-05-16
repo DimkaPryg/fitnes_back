@@ -31,20 +31,12 @@ def get_all_dailymeals(db: Session = Depends(get_db)):
 
 
 @app.post("/dailymeals", response_model=scheme.DailyMeals)
-def create_dailymeals(dailymeals: scheme.DailyMealsBase, db: Session = Depends(get_db)):
+def create_dailymeals(dailymeals: scheme.DailyMealsCreate, db: Session = Depends(get_db)):
     return service.create(db=db, dailymeals=dailymeals)
 
 
 @app.put("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
-def update_dailymeals(dailymeals_id: int, dailymeals: scheme.DailyMealsBase, db: Session = Depends(get_db)):
-    db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
-    if db_dailymeals is None:
-        raise HTTPException(status_code=404, detail="DailyMeals not found")
-    return service.update(db=db, dailymeals_id=dailymeals_id, dailymeals=dailymeals)
-
-
-@app.put("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
-def update_dailymeals(dailymeals_id: int, dailymeals: scheme.DailyMealsBase, db: Session = Depends(get_db)):
+def update_dailymeals(dailymeals_id: int, dailymeals: scheme.DailyMealsCreate, db: Session = Depends(get_db)):
     db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
     if db_dailymeals is None:
         raise HTTPException(status_code=404, detail="DailyMeals not found")
