@@ -27,6 +27,7 @@ def update(db: Session, food_id: int, food: scheme.FoodBase):
     db_food.calories = food.calories
     db_food.carbs = food.carbs
     db_food.fat = food.fat
+    db_food.protein = food.protein
     db.commit()
     db.refresh(db_food)
     return db_food

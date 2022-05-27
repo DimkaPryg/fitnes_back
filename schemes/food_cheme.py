@@ -8,6 +8,7 @@ class FoodBase(BaseModel):
     calories: float
     fat: float
     carbs: float
+    protein: float
 
 
 class Food(FoodBase):

@@ -24,7 +24,7 @@ def update(db: Session, dailymeals_id: int, dailymeals: scheme.DailyMealsCreate)
     db_dailymeals = get_by_id(db, dailymeals_id)
     db_dailymeals.user_id = dailymeals.user_id
     db_dailymeals.date = dailymeals.date
-    db_dailymeals.food_id= dailymeals.food_id
+    db_dailymeals.food_id = dailymeals.food_id
     db_dailymeals.mass = dailymeals.mass
     db.commit()
     db.refresh(db_dailymeals)
