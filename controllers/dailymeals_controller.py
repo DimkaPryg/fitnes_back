@@ -1,6 +1,9 @@
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from database import SessionLocal
 from services import dailymeals_service as service
@@ -20,6 +23,14 @@ def get_db():
 @app.get("/dailymeals/{dailymeals_id}", response_model=scheme.DailyMeals)
 def get_dailymeals(dailymeals_id: int, db: Session = Depends(get_db)):
     db_dailymeals = service.get_by_id(db, dailymeals_id=dailymeals_id)
+    if db_dailymeals is None:
+        raise HTTPException(status_code=404, detail="DailyMeals not found")
+    return db_dailymeals
+
+
+@app.get("/dailymeals-by-date/{date}", response_model=List[scheme.DailyMeals])
+def get_dailymeals(date: datetime, db: Session = Depends(get_db)):
+    db_dailymeals = service.get_by_date(db, date=date)
     if db_dailymeals is None:
         raise HTTPException(status_code=404, detail="DailyMeals not found")
     return db_dailymeals

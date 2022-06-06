@@ -1,6 +1,9 @@
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from database import SessionLocal
 from services import dailyworkout_service as service
@@ -20,7 +23,14 @@ def get_db():
 @app.get("/dailyworkout/{dailyworkout_id}", response_model=scheme.DailyWorkout)
 def get_dailyworkout(dailyworkout_id: int, db: Session = Depends(get_db)):
     db_dailyworkout = service.get_by_id(db, dailyworkout_id=dailyworkout_id)
-    print("hello")
+    if db_dailyworkout is None:
+        raise HTTPException(status_code=404, detail="DailyWorkout not found")
+    return db_dailyworkout
+
+
+@app.get("/dailyworkout-by-date/{date}", response_model=List[scheme.DailyWorkout])
+def get_dailyworkout(date: datetime, db: Session = Depends(get_db)):
+    db_dailyworkout = service.get_by_date(db, date)
     if db_dailyworkout is None:
         raise HTTPException(status_code=404, detail="DailyWorkout not found")
     return db_dailyworkout

@@ -1,10 +1,15 @@
 from sqlalchemy.orm import Session
 from schemes import dailyworkout_cheme as scheme
+from datetime import datetime
 import models
 
 
 def get_by_id(db: Session, dailyworkout_id: int):
     return db.query(models.DailyWorkout).filter(models.DailyWorkout.id == dailyworkout_id).first()
+
+
+def get_by_date(db: Session, date: datetime):
+    return db.query(models.DailyWorkout).filter(models.DailyWorkout.date == date).all()
 
 
 def get_all(db: Session, skip: int = 0, limit: int = 100):

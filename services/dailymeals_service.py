@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from datetime import datetime
 from schemes import dailymeals_cheme as scheme
 import models
 
@@ -35,3 +36,7 @@ def delete(db: Session, dailymeals_id: int):
     db_dailymeals = get_by_id(db, dailymeals_id)
     db.delete(db_dailymeals)
     db.commit()
+
+
+def get_by_date(db: Session, date: datetime):
+    return db.query(models.DailyMeals).filter(models.DailyMeals.date == date).all()
